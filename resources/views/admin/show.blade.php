@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
-                    <td>{{ $project->technologies ? $project->technologies->name : '' }}</td>
+                    <td>{{ $project->technologies ? $project->technologies[0]->name : '' }}</td>
                     <td>{{ $project->type ? $project->type->name : '' }}</td>
                     <td>{{ $project->description }}</td>
                     <td>
@@ -48,6 +48,7 @@
             @endif
             <div class="card-body">
                 <div class="card-title"><strong>Titolo:</strong> {{ $project->name }}</div>
+                <div class="card-title"><strong>Tecnologia:</strong> {{ $project->technologies ? $project->technologies[0]->name : '' }} </div>
                 <div class="card-title"><strong>Tipo:</strong> {{ $project->type ? $project->type->name : '' }}</div>
                 <p class="card-text"><strong>Descrizione:</strong> {{ $project->description }}</p>
                 <div><strong>GitHub:</strong> {{ $project->github_link }} </div>

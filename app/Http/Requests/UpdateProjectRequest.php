@@ -29,7 +29,7 @@ class UpdateProjectRequest extends FormRequest
             "description" => "required|string",
             "cover_img" => "required|image",
             "github_link" => "required|string",
-            "technologies" => "nullable|array|exist:technologies,id"
+            "technologies" => "nullable|exists:technologies,id"
         ];
     }
     public function messages()
