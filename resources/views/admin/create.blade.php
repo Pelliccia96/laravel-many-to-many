@@ -30,6 +30,13 @@
                 </div>
             @enderror
 
+            <label class="form-label">Technology: </label>
+            <select name="technology_id" class="form-select mb-4">
+                @foreach ($technologies as $technology)
+                <option value="{{ $technology->id }}">{{ $technology->name }}</option>
+                @endforeach
+            </select>
+
             <label class="form-label">Type: </label>
             <select name="type_id" class="form-select mb-4">
                 @foreach ($types as $type)

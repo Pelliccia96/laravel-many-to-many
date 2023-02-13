@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,9 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        return view("admin.index", compact('users', 'projects', 'types'));
+        $technologies = Technology::all();
+
+        return view("admin.index", compact('users', 'projects', 'types', 'technologies'));
     }
 
     /**
@@ -42,7 +45,9 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        return view("admin.create", compact('title', 'types'));
+        $technologies = Technology::all();
+
+        return view("admin.create", compact('title', 'types', 'technologies'));
     }
 
     /**
@@ -70,6 +75,12 @@ class ProjectController extends Controller
         $project = Project::create($data);
         $project->cover_img = $path;
         $project->save();
+
+        // Controlla che nei dati che il server sta ricevendo, ci sia un valore per la chiave "technologies".
+        if ($request->has("technologies")) {
+            // if (key_exists("technologies", $data)) {
+            $project->technologies()->attach($data["technologies"]);
+        }
 
         return redirect()->route('projects.show', $project->id);
     }
@@ -99,7 +110,9 @@ class ProjectController extends Controller
 
         $types = Type::all();
 
-        return view('admin.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -132,6 +145,8 @@ class ProjectController extends Controller
 
         $project->save();
 
+        $project->technologies()->sync($data["technologies"]);
+
         return redirect()->route('projects.show', $project->id);
     }
 
@@ -148,6 +163,8 @@ class ProjectController extends Controller
         if ($project->cover_img) {
             Storage::delete($project->cover_img);
         }
+
+        $project->technologies()->detach();
     
         $project->delete();
 

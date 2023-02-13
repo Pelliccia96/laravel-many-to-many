@@ -52,6 +52,7 @@
                 <tr>
                 <th>ID</th>
                 <th>Titolo</th>
+                <th>Tecnologia</th>
                 <th>Tipo</th>
                 <th>Descrizione</th>
                 <th>Immagine</th>
@@ -66,6 +67,7 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
+                    <td>{{ $project->technologies ? $project->technologies->name : '' }}</td>
                     <td>{{ $project->type ? $project->type->name : '' }}</td>
                     <td>{{ $project->description }}</td>
                     <td>
