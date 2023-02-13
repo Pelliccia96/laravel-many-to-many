@@ -32,7 +32,7 @@
             @enderror
 
             <label class="form-label">Technology: </label>
-            <select name="technology_id" class="form-select mb-4">
+            <select name="technologies" class="form-select mb-4">
                 @foreach ($technologies as $technology)
                 <option value="{{ $technology->id }}">{{ $technology->name }}</option>
                 @endforeach
