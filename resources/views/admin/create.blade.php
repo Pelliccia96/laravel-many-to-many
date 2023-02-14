@@ -30,19 +30,30 @@
                 </div>
             @enderror
 
-            <label class="form-label">Technology: </label>
-            <select name="technologies" class="form-select mb-4">
-                @foreach ($technologies as $technology)
-                <option value="{{ $technology->id }}">{{ $technology->name }}</option>
-                @endforeach
-            </select>
-
             <label class="form-label">Type: </label>
             <select name="type_id" class="form-select mb-4">
                 @foreach ($types as $type)
                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                 @endforeach
             </select>
+
+            <div class="mb-3">
+                @foreach ($technologies as $technology)
+                    <div class="form-check form-check-inline @error('technologies') is-invalid @enderror">
+                    <input class="form-check-input @error('technologies') is-invalid @enderror" type="checkbox"
+                        id="technologyCheckbox_{{ $loop->index }}" value="{{ $technology->id }}" name="technologies[]"
+                        {{ in_array( $technology->id, old('technologies', [])) ? 'checked' : '' }}
+                        >
+                    <label class="form-check-label" for="technologyCheckbox{{ $loop->index }}">{{ $technology->name }}</label>
+                    </div>
+                @endforeach
+            
+                @error('technologies')
+                    <div class="invalid-feedback">
+                    {{ $message }}
+                    </div>
+                @enderror
+            </div>
 
             <label class="form-label">Description: </label>
             <textarea type="text" name="description" class="form-control mb-4 @error('description') is-invalid @enderror" rows="3"

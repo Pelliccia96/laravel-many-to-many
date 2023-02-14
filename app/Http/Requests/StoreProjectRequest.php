@@ -29,7 +29,7 @@ class StoreProjectRequest extends FormRequest
             "description" => "required|string",
             "cover_img" => "required|image",
             "github_link" => "required|string",
-            "technologies" => "nullable|exists:technologies,id"
+            "technologies" => "nullable|array|exists:technologies,id"
         ];
     }
     public function messages()

@@ -67,7 +67,11 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
-                    <td>{{ isset($project->technologies[0]) ? $project->technologies[0]->name : '' }}</td>
+                    <td>
+                        @foreach ( $project->technologies as $technology)
+                            {{ $technology->name }}
+                        @endforeach
+                    </td>
                     <td>{{ $project->type ? $project->type->name : '' }}</td>
                     <td>{{ $project->description }}</td>
                     <td>
